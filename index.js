@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost/auction-system', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://snehithachaluvadi:snehitha@cluster0.6pepwuv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
