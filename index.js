@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/AuthRoutes');
 const auctionRoutes = require('./routes/AuctionRoutes');
-require('dotenv').config(); // ✅ load .env variables
+require('dotenv').config(); // ✅ load env variables
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -13,13 +13,18 @@ const PORT = process.env.PORT || 8000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// ✅ MongoDB connection using env variable
+// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+.then(() => console.log('MongoDB connected ✅'))
+.catch(err => console.error('MongoDB connection error:', err));
+
+// ✅ Optional test route
+app.get("/", (req, res) => {
+  res.send("Backend is working ✅");
+});
 
 // ✅ Routes
 app.use('/api/auth', authRoutes);
