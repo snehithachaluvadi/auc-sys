@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/AuthRoutes');
 const auctionRoutes = require('./routes/AuctionRoutes');
-require('dotenv').config(); // ✅ load env variables
+require('dotenv').config();
+ // ✅ load env variables
 
 const app = express();
 const PORT = process.env.PORT || 8000;
