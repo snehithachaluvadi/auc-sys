@@ -3,32 +3,29 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/AuthRoutes');
-const auctionRoutes = require('./routes/AuctionRoutes')
-
+const auctionRoutes = require('./routes/AuctionRoutes');
+require('dotenv').config(); // ✅ load .env variables
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware
+// ✅ Middleware
 app.use(cors());
 app.use(bodyParser.json());
-mongoose.connect('mongodb+srv://snehithachaluvadi:snehitha@cluster0.6pepwuv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
 
-// // Connect to MongoDB
-// mongoose.connect('mongodb+srv://test:12345@cluster0.v7jlqnt.mongodb.net/data');
-// const connection = mongoose.connection;
+// ✅ MongoDB connection using env variable
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log('MongoDB connection error:', err));
 
-// connection.once('open', () => {
-//   console.log('MongoDB database connection established successfully');
-// });
+// ✅ Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/auctions', auctionRoutes);
 
-// Routes
-app.use('/', authRoutes);
-app.use("/auctionRoute", auctionRoutes);
-
-// Start the server
+// ✅ Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
